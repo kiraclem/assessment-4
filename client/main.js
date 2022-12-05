@@ -3,8 +3,10 @@ const displayText = document.getElementById('randomFortune')
 const deletebtn = document.getElementById("deletebtn")
 const formTxt = document.getElementById('text')
 const post = document.getElementById('postBtn')
+const img = document.getElementById('imagePost')
 
 const getCompliment = () => {
+    displayText.innerHTML = ''
     axios.get("http://localhost:4000/api/compliment/")
         .then(res => {
             const data = res.data;
@@ -18,26 +20,22 @@ const getCompliment = () => {
 const deleteButton = () => {
     axios.delete(`http://localhost:4000/api/compliment/${deletebtn.id}`)
     .then(res => {
-        const data = res.data
-        displayText(data)
-        deletebtn.id = 1
-        i = deletebtn.id
-        
     })
     .catch(err => console.log(err))
 }
 
-const postButton = () => {
-    evt.preventDefault()
-    axios.post(`http://localhost:4000/api/compliment`)
+const postButton = (event) => {
+    event.preventDefault()
+    axios.post(`http://localhost:4000/api/compliment/`)
     .then(res => {
         const data = res.data
-        formTxt.textContent = input.value
-        post.appendChild(formTxt)
-        let img = document.createElement('img')
-        img.src = formTxt
-        displayText.appendChild(img)
-        
+        let userData = document.createElement('span')
+        let imgURL = document.createElement('img')
+        userData.textContent = data
+        imgURL.src = formTxt.value
+        img.appendChild(userData)
+        img.appendChild(imgURL)
+        formTxt.value = ''
     })
     .catch(err => console.log(err))
 }

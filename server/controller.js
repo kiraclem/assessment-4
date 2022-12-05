@@ -1,5 +1,5 @@
 const compliments = ["Gee, you're a smart cookie!", "Cool shirt!", "Your Javascript skills are stellar."];
-
+let user = 'user123'
 
 module.exports = {
 
@@ -12,13 +12,11 @@ module.exports = {
         res.status(200).send(randomCompliment);
     },
      deleteButton: (req, res) => {
-        let { i } = req.param
-        displayText.splice(i, 1)
-        res.status(200).send(displayText)
+
 //make a delete button that deletes 3 items from tge top if the list
      },
      postImg: (req, res) => {
-
+        res.status(200).send(`posted by ${user}:`)
      },
      edit: (req, res) => {
 
