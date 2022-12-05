@@ -1,9 +1,14 @@
+
 const complimentBtn = document.getElementById("complimentButton")
 const displayText = document.getElementById('randomFortune')
 const deletebtn = document.getElementById("deletebtn")
 const formTxt = document.getElementById('text')
 const post = document.getElementById('postBtn')
 const img = document.getElementById('imagePost')
+const submitBtn = document.getElementById('submit')
+const number = document.getElementById('number')
+const text = document.getElementById('text')
+const editForm = document.getElementById('editForm')
 
 const getCompliment = () => {
     displayText.innerHTML = ''
@@ -45,11 +50,25 @@ const postButton = (event) => {
     .catch(err => console.log(err))
 }
 
-const edit = () => {
-    
+const edit = (evt) => {
+    displayText.innerHTML = ''
+    evt.preventDefault()
+    let input = {
+        number: editForm.number.value,
+        text: editForm.text.value
+    }
+   
+    axios.put(`http://localhost:4000/api/compliment/`, input)
+    .then(res => {
+        const data = res.data;
+        let editedfortuneText = document.createElement('h3')
+        editedfortuneText.textContent = `${data}`
+        displayText.appendChild(editedfortuneText)
+    })
+    .catch(err => console.log(err))
 }
 
 complimentBtn.addEventListener('click', getCompliment)
 deletebtn.addEventListener('click', deleteButton)
 post.addEventListener('click', postButton)
-editButton.addEventListener('click', edit)
+editForm.addEventListener('submit', edit)

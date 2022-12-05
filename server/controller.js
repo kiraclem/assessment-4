@@ -27,6 +27,14 @@ module.exports = {
         numofPosts++
      },
      edit: (req, res) => {
+        console.log(req.body)
+      let { number, text } = req.body
+      let num = Number(number)
+      num--
+      console.log(num)
+      complimentList.splice(num,1,text)
+      
+      res.status(200).send(complimentList)
 
      }
 
