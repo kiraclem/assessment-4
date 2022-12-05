@@ -18,8 +18,13 @@ const getCompliment = () => {
 };
 
 const deleteButton = () => {
+    displayText.innerHTML = ''
     axios.delete(`http://localhost:4000/api/compliment/${deletebtn.id}`)
-    .then(res => {
+    .then(res => { 
+        const data = res.data;
+            let newfortuneText = document.createElement('h3')
+            newfortuneText.textContent = `${data}`
+            displayText.appendChild(newfortuneText)
     })
     .catch(err => console.log(err))
 }
@@ -47,3 +52,4 @@ const edit = () => {
 complimentBtn.addEventListener('click', getCompliment)
 deletebtn.addEventListener('click', deleteButton)
 post.addEventListener('click', postButton)
+editButton.addEventListener('click', edit)

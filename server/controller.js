@@ -1,5 +1,7 @@
-const compliments = ["Gee, you're a smart cookie!", "Cool shirt!", "Your Javascript skills are stellar."];
+const compliments = ["Gee, you're a smart cookie! " , "Cool shirt! " , "Your Javascript skills are stellar. " , "You are amazing! " , "Don't ever give up! "];
+const complimentList = []
 let user = 'user123'
+let numofPosts = 1
 
 module.exports = {
 
@@ -8,15 +10,21 @@ module.exports = {
         // choose random compliment
         let randomIndex = Math.floor(Math.random() * compliments.length);
         let randomCompliment = compliments[randomIndex];
-      
-        res.status(200).send(randomCompliment);
+        complimentList.push(randomCompliment)
+        res.status(200).send(complimentList);
     },
      deleteButton: (req, res) => {
-
-//make a delete button that deletes 3 items from tge top if the list
+        complimentList.splice(0, 1)
+        res.status(200).send(complimentList)
+     
      },
      postImg: (req, res) => {
-        res.status(200).send(`posted by ${user}:`)
+        if (numofPosts === 1) {
+            res.status(200).send(`posted by ${user}: this user has posted ${numofPosts} time`)
+        } else if (numofPosts > 1) {
+            res.status(200).send(`posted by ${user}: this user has posted ${numofPosts} times`)
+        }
+        numofPosts++
      },
      edit: (req, res) => {
 
